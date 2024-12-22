@@ -5,38 +5,51 @@
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.background {
+  background-color: #72f6fd;
+opacity: 0.8;
+background: linear-gradient(135deg, #343eff55 25%, transparent 25%) -10px 0/ 20px 20px, linear-gradient(225deg, #343eff 25%, transparent 25%) -10px 0/ 20px 20px, linear-gradient(315deg, #343eff55 25%, transparent 25%) 0px 0/ 20px 20px, linear-gradient(45deg, #343eff 25%, #72f6fd 25%) 0px 0/ 20px 20px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.maincontainer {
+  display: flex;
+  
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.sideshelf {
+  background-color: brown;
+}
+.bottom {
+  background-color: orange;
 }
 
-.card {
-  padding: 2em;
+.pc {
+  background-color: grey;
+  margin: 2rem 2rem 2rem 2rem;
 }
 
-.read-the-docs {
-  color: #888;
+.screen {
+  background-color: black;
+  margin: 1rem 1rem 1rem 1rem;
+}
+
+.section {
+  border: solid;
+  margin: 1rem 1rem 1rem 1rem;
+}
+
+.top {
+  background-color: ;
+}
+
+.monitor {
+  max-width: 70rem;
+}
+
+.keyboard {
+  max-width: 40rem;
+}
+
+.tower {
+  max-height: 25rem;
 }
