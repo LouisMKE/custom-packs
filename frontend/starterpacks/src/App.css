@@ -1,14 +1,13 @@
-#root {
+/* #root {
   max-width: 1280px;
-  margin: 0 auto;
+  margin: 0 ;
   padding: 2rem;
   text-align: center;
-}
+} */
 
 .background {
-  background-color: #72f6fd;
-opacity: 0.8;
-background: linear-gradient(135deg, #343eff55 25%, transparent 25%) -10px 0/ 20px 20px, linear-gradient(225deg, #343eff 25%, transparent 25%) -10px 0/ 20px 20px, linear-gradient(315deg, #343eff55 25%, transparent 25%) 0px 0/ 20px 20px, linear-gradient(45deg, #343eff 25%, #72f6fd 25%) 0px 0/ 20px 20px;
+  
+background-image: url(./assets/wall.jpg);
 }
 
 .maincontainer {
@@ -18,19 +17,21 @@ background: linear-gradient(135deg, #343eff55 25%, transparent 25%) -10px 0/ 20p
 
 .sideshelf {
   background-color: brown;
+  background-image: url(./assets/sideshelf.png);
 }
 .bottom {
-  background-color: orange;
+  background-image: url('./assets/desk.png');
+  display: flex;
+  justify-content: space-between;
 }
 
 .pc {
-  background-color: grey;
   margin: 2rem 2rem 2rem 2rem;
 }
 
 .screen {
-  background-color: black;
-  margin: 1rem 1rem 1rem 1rem;
+  
+  position: relative;
 }
 
 .section {
@@ -38,12 +39,22 @@ background: linear-gradient(135deg, #343eff55 25%, transparent 25%) -10px 0/ 20p
   margin: 1rem 1rem 1rem 1rem;
 }
 
-.top {
-  background-color: ;
+.screenbg {
+  position: absolute;
+  z-index: -1;
+  background-color: red;
 }
 
 .monitor {
-  max-width: 70rem;
+  width: 40rem;
+}
+
+.search {
+  position: absolute;
+  z-index: 1;
+  left: 7rem;
+  top: 7rem;
+  
 }
 
 .keyboard {
@@ -52,4 +63,27 @@ background: linear-gradient(135deg, #343eff55 25%, transparent 25%) -10px 0/ 20p
 
 .tower {
   max-height: 25rem;
+}
+
+.compslot {
+  display: flex;
+  padding: 5rem 5rem 0rem 5rem;
+}
+
+.speak1{
+  height: 25rem;
+  margin-top: 10rem;
+}
+
+.speak2{
+  height: 25rem;
+  margin-top: 10rem;
+}
+
+.mouse {
+  max-width: 20rem
+}
+
+.deskitem1 {
+  max-width: 10rem;
 }
