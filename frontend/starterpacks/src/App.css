@@ -30,6 +30,7 @@ background-image: url(./assets/wall.jpg);
 }
 
 .screen {
+  /* background-color: blue; */
   
   position: relative;
 }
@@ -37,6 +38,17 @@ background-image: url(./assets/wall.jpg);
 .section {
   border: solid;
   margin: 1rem 1rem 1rem 1rem;
+  padding: 0px 0px 0px 0px;
+  position: relative;
+}
+
+.buttons {
+  position: absolute;
+  left: 10rem;
+  top: 2rem;
+  font-size: x-large;
+  padding: 1rem 1rem 1rem 1rem;
+  background-color: green;
 }
 
 .screenbg {
@@ -62,7 +74,7 @@ background-image: url(./assets/wall.jpg);
 }
 
 .tower {
-  max-height: 25rem;
+  max-width: 25rem;
 }
 
 .compslot {
@@ -86,4 +98,9 @@ background-image: url(./assets/wall.jpg);
 
 .deskitem1 {
   max-width: 10rem;
+}
+
+.shelf {
+  max-width: 35rem;
+  margin: 0 0 0 0;
 }

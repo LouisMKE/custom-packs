@@ -6,6 +6,10 @@ import speak1 from '../assets/speak1.png';
 import speak2 from '../assets/speak2.png';
 import mouse from '../assets/mouse.png';
 import deskitem1 from '../assets/deskitem1.png';
+import shelf1 from '../assets/shelf1.png';
+import shelf2 from '../assets/shelf2.png';
+import shelf3 from '../assets/shelf3.png';
+import shelf4 from '../assets/shelf4.png';
 
 export function Home() {
 
@@ -14,10 +18,14 @@ export function Home() {
       <div className="background">
         <div className="maincontainer">
           <div className="sideshelf">
-           <p className="section">pack - man</p>
-           <p className="section">user / my account</p>
-           <p className="section">create a pack</p>
-           <p className="section">feed</p>
+           <div className="section">
+            <img className="shelf" src={shelf3}></img></div>
+           <div className="section">
+            <img className="shelf" src={shelf1}></img><button className="buttons"> sign in / sign up </button></div>
+           <div className="section">
+            <img className="shelf" src={shelf2}></img></div>
+           <div className="section">
+            <img className="shelf" src={shelf4}></img></div>
            <div className="section">
             <img className="tower"src={tower}></img>
            </div>
@@ -30,7 +38,6 @@ export function Home() {
                     <div>
                       <div>
                         <div className="screen">
-                          
                           <button className="search">search bar</button>
                           <div className="screenbg"></div>
                           <img className="monitor"src={monotest}></img>
