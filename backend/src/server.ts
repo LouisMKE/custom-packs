@@ -1,23 +1,21 @@
-const forceDatabaseRefresh = false;
-
-import dotenv from 'dotenv';
-dotenv.config();
-
 import express from 'express';
+import path from 'node:path';
+import db from './config/connection.js';
 import routes from './routes/index.js';
-import { sequelize } from './models/index.js';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Serves static files in the entire client's dist folder
-app.use(express.static('../client/dist'));
-
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+// if we're in production, serve client/build as static assets
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../client/build')));
+}
+
 app.use(routes);
 
-sequelize.sync({force: forceDatabaseRefresh}).then(() => {
-  app.listen(PORT, () => {
-    console.log(`Server is listening on port ${PORT}`);
-  });
+db.once('open', () => {
+  app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
 });

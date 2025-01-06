@@ -1,4 +1,7 @@
-import User from '../models/User';
+import type { Request, Response } from 'express';
+// import user model
+import User from '../models/User.js';
+// import sign token function from auth
 
 // Get User Profile
 export const getUserProfile = async (req, res) => {

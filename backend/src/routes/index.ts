@@ -1,12 +1,18 @@
-import { Router } from 'express';
-import authRoutes from './auth-routes.js';
+import type { Request, Response } from 'express';
+import express from 'express';
+const router = express.Router();
+
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 import apiRoutes from './api/index.js';
-import { authenticateToken } from '../middleware/auth.js';
 
-const router = Router();
+router.use('/api', apiRoutes);
 
-router.use('/auth', authRoutes);
-// TODO: Add authentication to the API routes
-router.use('/api', authenticateToken, apiRoutes);
+// serve up react front-end in production
+router.use((_req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, '../../client/build/index.html'));
+});
 
 export default router;
