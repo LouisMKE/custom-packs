@@ -1,15 +1,11 @@
 import { Router } from 'express';
-const router = Router();
-
-import { getUserProfile, updateUserProfile } from '../../controllers/userController';
-import { registerUser, loginUser } from '../../controllers/authController';
-
+import { getUserProfile, getSavedPacks, savePack } from '../../controllers/userController';
 import { authenticateToken } from '../../middleware/auth';
 
-router.route('/').post(registerUser).put(authenticateToken)
+const router = Router();
 
-router.route('/:userId').get(getUserProfile).post(updateUserProfile)
+router.get('/profile', authenticateToken, getUserProfile);
+router.get('/packs', authenticateToken, getSavedPacks);
+router.post('/packs', authenticateToken, savePack);
 
-router.route('/login').post(loginUser)
-
-export {router as userRouter};
+export default router;
