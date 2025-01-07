@@ -18,6 +18,9 @@ background-image: url(./assets/wall.jpg);
 .sideshelf {
   background-color: brown;
   background-image: url(./assets/sideshelf.png);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 .bottom {
   background-image: url('./assets/desk.png');
@@ -49,6 +52,7 @@ background-image: url(./assets/wall.jpg);
   font-size: x-large;
   padding: 1rem 1rem 1rem 1rem;
   background-color: green;
+  
 }
 
 .screenbg {
@@ -79,7 +83,7 @@ background-image: url(./assets/wall.jpg);
 
 .compslot {
   display: flex;
-  padding: 5rem 5rem 0rem 5rem;
+  padding: 1rem 5rem 0rem 5rem;
 }
 
 .speak1{
@@ -103,4 +107,16 @@ background-image: url(./assets/wall.jpg);
 .shelf {
   max-width: 35rem;
   margin: 0 0 0 0;
+  padding:0;
+}
+
+.logo {
+  max-width: 70rem;
+}
+
+.info {
+  border: solid;
+  margin: 1rem 1rem 1rem 1rem;
+  padding: 3px 0px 0px 0px;
+  background-color: blueviolet;
 }
