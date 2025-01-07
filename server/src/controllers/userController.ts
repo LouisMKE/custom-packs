@@ -1,37 +1,52 @@
-import type { Request, Response } from 'express';
-// import user model
-import User from '../models/User.js';
-// import sign token function from auth
+import { AuthenticatedRequest } from '../types/express';
+import { Response } from 'express';
+import User from '../models/User';
 
-// Get User Profile
-export const getUserProfile = async (req: Request, res: Response) => {
+export const getUserProfile = async (req: AuthenticatedRequest, res: Response): Promise<Response | void> => {
   try {
-    const userId = req.user.id; // Assuming req.user is set by auth middleware
+    const userId = req.user?.id;
+    if (!userId) return res.status(401).json({ message: 'Unauthorized' });
+
     const user = await User.findById(userId).select('-password');
-    if (!user){
-      return res.status(404).json({ message: 'User not found' }); 
-    } 
+    if (!user) return res.status(404).json({ message: 'User not found' });
 
     return res.status(200).json(user);
   } catch (error) {
-    return res.status(500).json({ message: "Can't Find Path" });
+    return res.status(500).json({ message: (error as Error).message });
   }
 };
 
-// Update User Profile
-export const updateUserProfile = async (req: Request, res: Response) => {
+export const getSavedPacks = async (req: AuthenticatedRequest, res: Response): Promise<Response | void> => {
   try {
-    const userId = req.user.id;
-    const { username, email } = req.body;
+    const userId = req.user?.id;
+    if (!userId) return res.status(401).json({ message: 'Unauthorized' });
+
+    const user = await User.findById(userId).populate('savedPacks');
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    return res.status(200).json(user.savedPacks);
+  } catch (error) {
+    return res.status(500).json({ message: (error as Error).message });
+  }
+};
+
+export const savePack = async (req: AuthenticatedRequest, res: Response): Promise<Response | void> => {
+  try {
+    const userId = req.user?.id;
+    if (!userId) return res.status(401).json({ message: 'Unauthorized' });
+
+    const { packId, title, description, link } = req.body;
 
     const updatedUser = await User.findByIdAndUpdate(
       userId,
-      { username, email },
-      { new: true }
-    ).select('-password');
+      { $push: { savedPacks: { packId, title, description, link } } },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedUser) return res.status(404).json({ message: 'User not found' });
 
     return res.status(200).json(updatedUser);
   } catch (error) {
-    return res.status(500).json({ message: "Can't Find Path" });
+    return res.status(500).json({ message: (error as Error).message });
   }
 };

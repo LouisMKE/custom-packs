@@ -1,38 +1,57 @@
-import Pack from '../models/Pack';
-import type { Request, Response } from 'express';
+import { Request, Response } from 'express';
+import packSchema, { PackDocument } from '../models/Pack';
+import mongoose from 'mongoose';
 
-// Get All Packs
-export const getAllPacks = async (req: Request, res: Response) => {
+const Pack = mongoose.model<PackDocument>('Pack', packSchema);
+
+export const getAllPacks = async (_: Request, res: Response): Promise<Response | void> => {
   try {
     const packs = await Pack.find();
-    res.status(200).json(packs);
+    return res.status(200).json(packs);
   } catch (error) {
-    res.status(500).json({ message: "Can't Find Path"});
+    return res.status(500).json({ message: (error as Error).message });
   }
 };
 
-// Create a New Pack
-export const createPack = async (req: Request, res: Response) => {
+export const createPack = async (req: Request, res: Response): Promise<Response | void> => {
   try {
-    const { title, theme, items, createdBy } = req.body;
+    const { packId, title, description, link } = req.body;
 
-    const newPack = new Pack({ title, theme, items, createdBy });
+    const newPack = new Pack({ packId, title, description, link });
     await newPack.save();
 
-    res.status(201).json(newPack);
+    return res.status(201).json(newPack);
   } catch (error) {
-    res.status(400).json({ message: "Can't Find Path"});
+    return res.status(400).json({ message: (error as Error).message });
   }
 };
 
-// Delete a Pack
-export const deletePack = async (req: Request, res: Response) => {
+export const deletePack = async (req: Request, res: Response): Promise<Response | void> => {
   try {
     const { id } = req.params;
 
-    await Pack.findByIdAndDelete(id);
-    res.status(200).json({ message: 'Pack deleted successfully' });
+    const deletedPack = await Pack.findByIdAndDelete(id);
+    if (!deletedPack) {
+      return res.status(404).json({ message: 'Pack not found' });
+    }
+
+    return res.status(200).json({ message: 'Pack deleted successfully' });
   } catch (error) {
-    res.status(500).json({ message: "Can't Find Path"});
+    return res.status(500).json({ message: (error as Error).message });
+  }
+};
+
+export const getPackById = async (req: Request, res: Response): Promise<Response | void> => {
+  try {
+    const { id } = req.params;
+
+    const pack = await Pack.findById(id);
+    if (!pack) {
+      return res.status(404).json({ message: 'Pack not found' });
+    }
+
+    return res.status(200).json(pack);
+  } catch (error) {
+    return res.status(500).json({ message: (error as Error).message });
   }
 };
