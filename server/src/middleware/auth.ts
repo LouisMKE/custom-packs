@@ -1,25 +1,37 @@
 import jwt from 'jsonwebtoken';
-import { AuthenticatedRequest } from '../types/express';
-import { Response, NextFunction } from 'express';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'default_secret';
 
-export const authenticateToken = (req: AuthenticatedRequest, res: Response, next: NextFunction): void => {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
+// Middleware to Authenticate Token
+export const authenticateToken = (req: any, res: any, next: any) => {
+  try {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
 
-  if (!token) {
-    res.status(401).json({ message: 'Access denied. No token provided.' });
-    return;
-  }
-
-  jwt.verify(token, JWT_SECRET, (err, user) => {
-    if (err) {
-      res.status(403).json({ message: 'Invalid token.' });
-      return;
+    if (!token) {
+      return res.status(401).json({ message: 'Access denied. No token provided.' });
     }
 
-    req.user = user as { id: string };
+    // Verify the token
+    jwt.verify(token, JWT_SECRET, (err: any, user: any) => {
+      if (err) return res.status(403).json({ message: 'Invalid token.' });
+
+      req.user = user;
+      next();
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Internal server error.' });
+  }
+};
+
+// Middleware to Protect Admin Routes (Example)
+export const authenticateAdmin = (req: any, res: any, next: any) => {
+  try {
+    if (!req.user || req.user.role !== 'admin') {
+      return res.status(403).json({ message: 'Access denied. Admins only.' });
+    }
     next();
-  });
+  } catch (error) {
+    res.status(500).json({ message: 'Internal server error.' });
+  }
 };
